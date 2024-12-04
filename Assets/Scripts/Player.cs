@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
+
+    [SerializeField] private float turnRate = 7f;
     private void Update()
     {
         Vector2 inputVector = Vector2.zero;
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour
         inputVector = inputVector.normalized;
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
+
+        transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
 
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }

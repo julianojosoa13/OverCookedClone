@@ -25,6 +25,23 @@ public class Player : MonoBehaviour
 
         transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
 
+        if(!canMove) {
+            Vector3 moveDirX = new Vector3(moveDir.x, 0, 0);
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance );
+
+            if(canMove) {
+                moveDir = moveDirX;
+            } else {
+                Vector3 moveDirZ = new Vector3(0, 0, moveDir.z);
+                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance );
+                if(canMove) {
+                    moveDir = moveDirZ;
+                } else {
+                    // Player can't move in any direction
+                }
+            }
+        }
+
         if(canMove) transform.position += moveDir * moveDistance;
 
         isWalking = moveDir != Vector3.zero;

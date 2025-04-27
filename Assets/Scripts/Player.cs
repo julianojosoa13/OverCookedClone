@@ -17,9 +17,15 @@ public class Player : MonoBehaviour
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
 
+        float playerRadius = .7f;
+        float playerHeight = 2.0f;
+
+        float moveDistance = Time.deltaTime * moveSpeed;
+        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance );
+
         transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
 
-        transform.position += moveDir * Time.deltaTime * moveSpeed;
+        if(canMove) transform.position += moveDir * moveDistance;
 
         isWalking = moveDir != Vector3.zero;
     }

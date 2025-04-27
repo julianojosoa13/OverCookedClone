@@ -10,9 +10,40 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameInput gameInput;
 
+    [SerializeField] private LayerMask countersLayerMask;
+
     private bool isWalking;
+    private Vector3 lastInteractDir;
+
+
     private void Update()
     {
+        HandleMovement();
+        HandleInteract();
+    }
+
+    private void HandleInteract() {
+        Vector2 inputVector = gameInput.GetMovementVector();
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
+
+        float interactDistance = 2f;
+
+        if(moveDir != Vector3.zero) {
+            lastInteractDir = moveDir;
+        }
+
+        if(Physics.Raycast(transform.position, lastInteractDir, out  RaycastHit raycastHit,interactDistance, countersLayerMask)) {
+            Debug.Log(raycastHit.transform);
+            if(raycastHit.transform.TryGetComponent(out ClearCounter counter )) {
+                counter.Interact();
+            }
+        } else {
+            Debug.Log("-");
+        }
+    } 
+
+    private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVector();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);

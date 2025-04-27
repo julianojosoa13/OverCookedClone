@@ -23,8 +23,7 @@ public class Player : MonoBehaviour
         float moveDistance = Time.deltaTime * moveSpeed;
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance );
 
-        transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
-
+       
         if(!canMove) {
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0);
             canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance );
@@ -43,6 +42,8 @@ public class Player : MonoBehaviour
         }
 
         if(canMove) transform.position += moveDir * moveDistance;
+
+        transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
 
         isWalking = moveDir != Vector3.zero;
     }

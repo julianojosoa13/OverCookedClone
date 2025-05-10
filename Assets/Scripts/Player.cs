@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +17,19 @@ public class Player : MonoBehaviour
     private Vector3 lastInteractDir;
 
 
+    private void Start()
+    {
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+    }
+
     private void Update()
     {
         HandleMovement();
+        // HandleInteract();
+    }
+
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
         HandleInteract();
     }
 
@@ -34,12 +45,9 @@ public class Player : MonoBehaviour
         }
 
         if(Physics.Raycast(transform.position, lastInteractDir, out  RaycastHit raycastHit,interactDistance, countersLayerMask)) {
-            Debug.Log(raycastHit.transform);
             if(raycastHit.transform.TryGetComponent(out ClearCounter counter )) {
                 counter.Interact();
             }
-        } else {
-            Debug.Log("-");
         }
     } 
 

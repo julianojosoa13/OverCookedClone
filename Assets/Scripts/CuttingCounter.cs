@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearCounter : BaseCounter
-{  
-
-    public override void Interact(Player player) {
+public class CuttingCounter : BaseCounter
+{
+      public override void Interact(Player player) {
         if(!HasKitchenObject()) {
             if(player.HasKitchenObject()) {
                 KitchenObject kitchenObject = player.GetKitchenObject();
@@ -17,5 +16,5 @@ public class ClearCounter : BaseCounter
                 kitchenObject.SetKitchenObjectParent(player);
             }
         }
-    }
+    }   
 }

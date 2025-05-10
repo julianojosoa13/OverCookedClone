@@ -20,14 +20,14 @@ public class KitchenObject : MonoBehaviour
 
           this.kitchenObjectParent = kitchenObjectParent;
           
-          if(this.kitchenObjectParent.HasKitchenObject()) {
-               Debug.LogError("Counter has already a kitchen object!");
-          }
-
-          this.kitchenObjectParent.SetKitchenObject(this);
-          
+          if(kitchenObjectParent.HasKitchenObject()) {
+               Debug.LogError("IKitchenObjectParent has already a kitchen object!");
+          } 
+          kitchenObjectParent.SetKitchenObject(this);
+               
           transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
           transform.localPosition = Vector3.zero; 
+          
     }
 
      public IKitchenObjectParent GetKitchenObjectParent() {

@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
                 SetSelectedCounter(null);
             }
         } else {
-            SetSelectedCounter(null);   
+            SetSelectedCounter(null);  
         }
     } 
 

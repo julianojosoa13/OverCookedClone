@@ -3,14 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IHasProgress
 {
-      public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+      public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
       public event EventHandler OnCut;
 
-      public class OnProgressChangedEventArgs: EventArgs {
-        public float progressNormalized;
-      };
 
       [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
 
@@ -23,7 +20,7 @@ public class CuttingCounter : BaseCounter
                 if(HasRecipeWithInput(kitchenObject.GetKitchenObjectSO())) {
                     kitchenObject.SetKitchenObjectParent(this);
                     cuttingProgress = 0;
-                    OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs {
+                    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs {
                         progressNormalized = cuttingProgress
                     });
                 }
@@ -33,7 +30,7 @@ public class CuttingCounter : BaseCounter
                 KitchenObject kitchenObject = GetKitchenObject();
                 kitchenObject.SetKitchenObjectParent(player);
                 cuttingProgress = 0;
-                OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs {
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs {
                     progressNormalized = cuttingProgress
                 });
             }
@@ -54,7 +51,7 @@ public class CuttingCounter : BaseCounter
 
                 // private float progress = (float) cuttingProgress / recipe.cuttingProgressMax;
 
-                OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs {
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs {
                     progressNormalized = (float) cuttingProgress / recipe.cuttingProgressMax
                 });
 

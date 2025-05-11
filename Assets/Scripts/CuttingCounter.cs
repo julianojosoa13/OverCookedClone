@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter
 {
-      [SerializeField] private KitchenObjectSO cutKitchenObjectSO;
+      [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
 
       public override void Interact(Player player) {
         if(!HasKitchenObject()) {
             if(player.HasKitchenObject()) {
                 KitchenObject kitchenObject = player.GetKitchenObject();
-                kitchenObject.SetKitchenObjectParent(this);
+                if(HasRecipeWithInput(kitchenObject.GetKitchenObjectSO())) {
+                    kitchenObject.SetKitchenObjectParent(this);
+                }
             }
         } else {
             if(!player.HasKitchenObject()) {
@@ -22,9 +24,31 @@ public class CuttingCounter : BaseCounter
 
     public override void InteractAlternate(Player player) {
         if(HasKitchenObject()) {
-           GetKitchenObject().DestroySelf();
+            KitchenObject currenKitchenObject = GetKitchenObject();
+            KitchenObjectSO cutKitchenObjectSO = GetOutputForInput(currenKitchenObject.GetKitchenObjectSO());
 
-           KitchenObject.SpawnKitchenObject(cutKitchenObjectSO, this); 
+            if(cutKitchenObjectSO != null) {
+                currenKitchenObject.DestroySelf();
+                KitchenObject.SpawnKitchenObject(cutKitchenObjectSO, this); 
+            }
         }
+    }
+
+    private bool HasRecipeWithInput(KitchenObjectSO inputKitchenObjectSO) {
+         foreach(CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray) {
+            if(cuttingRecipeSO.input == inputKitchenObjectSO) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private KitchenObjectSO GetOutputForInput(KitchenObjectSO inputKitchenObjectSO) {
+        foreach(CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray) {
+            if(cuttingRecipeSO.input == inputKitchenObjectSO) {
+                return cuttingRecipeSO.output;
+            }
+        }
+        return null;
     }  
 }

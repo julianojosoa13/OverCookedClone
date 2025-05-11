@@ -32,6 +32,10 @@ public class CuttingCounter : BaseCounter
             if(!player.HasKitchenObject()) {
                 KitchenObject kitchenObject = GetKitchenObject();
                 kitchenObject.SetKitchenObjectParent(player);
+                cuttingProgress = 0;
+                OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs {
+                    progressNormalized = cuttingProgress
+                });
             }
         }
     } 

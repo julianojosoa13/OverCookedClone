@@ -18,12 +18,10 @@ public class CuttingCounterVisual : MonoBehaviour
     }
 
     private void Start() {
-        cuttingCounter.OnProgressChanged += CuttingCounter_OnProgressChanged;
+        cuttingCounter.OnCut += CuttingCounter_OnCut;
     }
 
-    private void CuttingCounter_OnProgressChanged(object sender , CuttingCounter.OnProgressChangedEventArgs e) {
-        if(e.progressNormalized > 0) {
-            animator.SetTrigger(CUT);
-        }
+    private void CuttingCounter_OnCut(object sender , EventArgs e) {
+        animator.SetTrigger(CUT);
     }
 }

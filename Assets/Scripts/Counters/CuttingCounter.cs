@@ -34,12 +34,12 @@ public class CuttingCounter : BaseCounter, IHasProgress
                     progressNormalized = cuttingProgress
                 });
             } else {
-                 if(player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject)) {
+                 if(player.GetKitchenObject().TryGetPlateKitchenObject(out PlateKitchenObject plateKitchenObject)) {
                     if(plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO())) {
                         GetKitchenObject().DestroySelf();
                     }
                 } else {
-                    if(GetKitchenObject().TryGetPlate(out PlateKitchenObject plate)) {
+                    if(GetKitchenObject().TryGetPlateKitchenObject(out PlateKitchenObject plate)) {
                         plate.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO());
                     }
                 }

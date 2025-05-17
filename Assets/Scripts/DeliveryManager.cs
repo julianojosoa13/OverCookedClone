@@ -6,7 +6,11 @@ using UnityEngine;
 public class DeliveryManager : MonoBehaviour
 {
     public event EventHandler OnWaitingRecipeListChanged;
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFailed;
+
     public static DeliveryManager Instance {get; private set;}
+
 
     [SerializeField] private RecipeListSO recipeListSO;
     private List<RecipeSO> waitingRecipeSOList;
@@ -65,10 +69,13 @@ public class DeliveryManager : MonoBehaviour
                     Debug.Log("Recipe Delivered!");
                     waitingRecipeSOList.RemoveAt(i);
                     OnWaitingRecipeListChanged?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
                     return;   
-                }
+                }                
             }
         }
+
+        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
 
         Debug.Log("Player did not deliver correct recipe!");
     }

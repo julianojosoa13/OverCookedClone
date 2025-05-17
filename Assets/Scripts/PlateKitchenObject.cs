@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlateKitchenObject : KitchenObject
 {
+    public static EventHandler OnAnyIngredientAdded;
     public event EventHandler<OnIngredientAddedEventArgs> OnIngredientAdded;
     public class OnIngredientAddedEventArgs: EventArgs {
         public KitchenObjectSO kitchenObjectSO;
@@ -28,6 +29,7 @@ public class PlateKitchenObject : KitchenObject
             OnIngredientAdded?.Invoke(this, new OnIngredientAddedEventArgs {
                 kitchenObjectSO = kitchenObjectSO
             });
+            OnAnyIngredientAdded?.Invoke(this, EventArgs.Empty);
             return true;
         }
     }

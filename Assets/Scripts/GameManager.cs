@@ -6,8 +6,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
    public event EventHandler OnGameStateChanged;
+   public event EventHandler OnGamePaused;
+   public event EventHandler OnGameUnpaused;
 
    public static GameManager Instance {get; private set;}
+   
+   [SerializeField] private GameInput gameInput;
 
    private enum State {
     WaitingToStart,
@@ -17,15 +21,37 @@ public class GameManager : MonoBehaviour
    }
 
    private State state;
+   private bool isGamePaused = false;
 
    private float waitingToStartTimer = 1f;
    private float coundownToStartTimer = 3f;
    private float gamePlayingTimer;
-   private float gamePlayingTimerMax = 60f;
+   private float gamePlayingTimerMax = 120f;
 
    private void Awake() {
       Instance = this;
       state = State.WaitingToStart;
+   }
+
+   private void Start() {
+         gameInput.OnPause += GameInput_OnPause;   
+   }
+
+   private void GameInput_OnPause(object sender, EventArgs e) {
+        TogglePause();
+    }
+
+   public void TogglePause() {
+        if(isGamePaused) {
+            Time.timeScale = 1f;
+
+            OnGameUnpaused?.Invoke(this, EventArgs.Empty);
+        } else {
+            Time.timeScale = 0f;
+
+            OnGamePaused?.Invoke(this, EventArgs.Empty);
+        }
+        isGamePaused = !isGamePaused;
    }
 
    private void Update() {

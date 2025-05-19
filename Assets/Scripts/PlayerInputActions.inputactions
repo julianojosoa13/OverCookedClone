@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "66496021-be98-4ed6-859e-7aad9fa8345f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -229,6 +238,17 @@
                     "processors": "",
                     "groups": ";QWERY KEYBOARD;AZERTY KEYBOARD",
                     "action": "InteractAlternate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17e8afdf-3bb9-4547-bf8f-24fefebf140a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";AZERTY KEYBOARD;QWERY KEYBOARD",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

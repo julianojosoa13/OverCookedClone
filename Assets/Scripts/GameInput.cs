@@ -9,6 +9,7 @@ public class GameInput : MonoBehaviour
 {
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnPause;
 
     private PlayerInputActions playerInputActions;
 
@@ -19,6 +20,21 @@ public class GameInput : MonoBehaviour
 
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
+        playerInputActions.Player.Pause.performed +=  Pause_performed;
+
+    }
+
+    private void OnDestroy() {
+        playerInputActions.Player.Interact.performed -= Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
+        playerInputActions.Player.Pause.performed -=  Pause_performed;
+
+        playerInputActions.Dispose();
+
+    }
+
+    private void Pause_performed(InputAction.CallbackContext obj) {
+        OnPause?.Invoke(this, EventArgs.Empty);
     }
 
 

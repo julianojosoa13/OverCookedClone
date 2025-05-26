@@ -11,6 +11,18 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPause;
 
+
+    public enum Binding
+    {
+        MoveUp,
+        MoveDown,
+        MoveLeft,
+        MoveRight,
+        Interact,
+        InteractAlternative,
+        Pause
+    }
+
     private PlayerInputActions playerInputActions;
 
     private void Awake()
@@ -20,20 +32,22 @@ public class GameInput : MonoBehaviour
 
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
-        playerInputActions.Player.Pause.performed +=  Pause_performed;
+        playerInputActions.Player.Pause.performed += Pause_performed;
 
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         playerInputActions.Player.Interact.performed -= Interact_performed;
         playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
-        playerInputActions.Player.Pause.performed -=  Pause_performed;
+        playerInputActions.Player.Pause.performed -= Pause_performed;
 
         playerInputActions.Dispose();
 
     }
 
-    private void Pause_performed(InputAction.CallbackContext obj) {
+    private void Pause_performed(InputAction.CallbackContext obj)
+    {
         OnPause?.Invoke(this, EventArgs.Empty);
     }
 
@@ -41,12 +55,12 @@ public class GameInput : MonoBehaviour
     private void InteractAlternate_performed(InputAction.CallbackContext obj)
     {
         OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
-    }  
+    }
 
     private void Interact_performed(InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
-    }    
+    }
     // Start is called before the first frame update
     public Vector2 GetMovementVector()
     {

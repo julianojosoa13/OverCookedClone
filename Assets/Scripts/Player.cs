@@ -6,11 +6,12 @@ using UnityEngine;
 public class Player : MonoBehaviour, IKitchenObjectParent
 {
     public event EventHandler OnPickedSomething;
-    public static Player Instance {get; private set;}
+    public static Player Instance { get; private set; }
 
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
-    public class OnSelectedCounterChangedEventArgs : EventArgs {
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
         public BaseCounter selectedCounter;
     }
 
@@ -33,9 +34,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private KitchenObject kitchenObject;
 
 
-    private void Awake() 
+    private void Awake()
     {
-        if(Instance != null) {
+        if (Instance != null)
+        {
             Debug.LogError("There is more than one player instance!");
         }
         Instance = this;
@@ -53,10 +55,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         HandleInteract();
     }
 
-    
-    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e) {
-        if(!GameManager.Instance.IsGamePlaying()) return;
-         if(selectedCounter != null)
+
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
+    {
+        if (!GameManager.Instance.IsGamePlaying()) return;
+        if (selectedCounter != null)
         {
             selectedCounter.InteractAlternate(this);
         }
@@ -64,39 +67,48 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        if(!GameManager.Instance.IsGamePlaying()) return;
-        if(selectedCounter != null)
+        if (!GameManager.Instance.IsGamePlaying()) return;
+        if (selectedCounter != null)
         {
             selectedCounter.Interact(this);
         }
     }
 
-    private void HandleInteract() {
+    private void HandleInteract()
+    {
         Vector2 inputVector = gameInput.GetMovementVector();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
 
         float interactDistance = 2f;
 
-        if(moveDir != Vector3.zero) {
+        if (moveDir != Vector3.zero)
+        {
             lastInteractDir = moveDir;
         }
 
-       if(Physics.Raycast(transform.position, lastInteractDir, out  RaycastHit raycastHit,interactDistance, countersLayerMask)) {
-            if(raycastHit.transform.TryGetComponent(out BaseCounter counter )) {
-                if(counter != selectedCounter)
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        {
+            if (raycastHit.transform.TryGetComponent(out BaseCounter counter))
+            {
+                if (counter != selectedCounter)
                 {
                     SetSelectedCounter(counter);
-                } 
-            } else {
+                }
+            }
+            else
+            {
                 SetSelectedCounter(null);
             }
-        } else {
-            SetSelectedCounter(null);  
         }
-    } 
+        else
+        {
+            SetSelectedCounter(null);
+        }
+    }
 
-    private void HandleMovement() {
+    private void HandleMovement()
+    {
         Vector2 inputVector = gameInput.GetMovementVector();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
@@ -105,39 +117,48 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         float playerHeight = 2.0f;
 
         float moveDistance = Time.deltaTime * moveSpeed;
-        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance );
+        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
-       
-        if(!canMove) {
+
+        if (!canMove)
+        {
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
-            canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance );
+            canMove = (moveDir.x < -0.5f || moveDir.x > 0.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
 
-            if(canMove) {
+            if (canMove)
+            {
                 moveDir = moveDirX;
-            } else {
+            }
+            else
+            {
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                canMove = moveDir.z != 0 &&  !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance );
-                if(canMove) {
+                canMove = (moveDir.z < -0.5f || moveDir.z > 0.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+                if (canMove)
+                {
                     moveDir = moveDirZ;
-                } else {
+                }
+                else
+                {
                     // Player can't move in any direction
                 }
             }
         }
 
-        if(canMove) transform.position += moveDir * moveDistance;
+        if (canMove) transform.position += moveDir * moveDistance;
 
         transform.LookAt(transform.position + Vector3.Slerp(transform.forward.normalized, moveDir, Time.deltaTime * turnRate));
 
         isWalking = moveDir != Vector3.zero;
     }
 
-    private void SetSelectedCounter(BaseCounter selectedCounter) {
+    private void SetSelectedCounter(BaseCounter selectedCounter)
+    {
         this.selectedCounter = selectedCounter;
 
-        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs {
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
             selectedCounter = selectedCounter
-        });  
+        });
     }
 
     public bool IsWalking()
@@ -145,27 +166,33 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         return isWalking;
     }
 
-    public Transform GetKitchenObjectFollowTransform() {
+    public Transform GetKitchenObjectFollowTransform()
+    {
         return attachPoint;
     }
 
-    public void SetKitchenObject(KitchenObject kitchenObject) {
+    public void SetKitchenObject(KitchenObject kitchenObject)
+    {
         this.kitchenObject = kitchenObject;
 
-        if(kitchenObject != null) {
+        if (kitchenObject != null)
+        {
             OnPickedSomething?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    public KitchenObject GetKitchenObject() {
+    public KitchenObject GetKitchenObject()
+    {
         return kitchenObject;
     }
 
-    public void ClearKitchenObject() {
+    public void ClearKitchenObject()
+    {
         this.kitchenObject = null;
     }
 
-    public bool HasKitchenObject() {
+    public bool HasKitchenObject()
+    {
         return this.kitchenObject != null;
     }
 }

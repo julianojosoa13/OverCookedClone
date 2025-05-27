@@ -36,7 +36,7 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gamepadPauseText;
     [SerializeField] private Transform pressToRebindKeyTransform;
 
-
+    private Action onCloseButton;
 
     private void Start()
     {
@@ -144,11 +144,14 @@ public class OptionsUI : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        onCloseButton?.Invoke();
     }
 
-    public void Show()
+    public void Show(Action onClose)
     {
+        this.onCloseButton = onClose;
         gameObject.SetActive(true);
+        soundEffectsButton.Select();
     }
 
     private void ShowPressToRebindKey()

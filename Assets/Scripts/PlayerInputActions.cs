@@ -130,61 +130,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""24f2b577-c7c4-4afb-a11b-5ef5bd339090"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""6cf0092f-a00a-4c30-b8d9-3553301f9928"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";QWERY KEYBOARD"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""c97e2536-837d-4ae7-806b-6f9ce9506a50"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";QWERY KEYBOARD"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""bd5d86ab-948c-4218-b188-cb6202aba604"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";QWERY KEYBOARD"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""3e249fd4-c6e1-40f0-b27b-9a93ce3501cd"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";QWERY KEYBOARD"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""ZQSD"",
                     ""id"": ""1bdfbbc7-12b7-45d4-88d5-88ee5bd33c62"",
                     ""path"": ""2DVector"",
@@ -342,11 +287,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     ],
     ""controlSchemes"": [
-        {
-            ""name"": ""QWERY KEYBOARD"",
-            ""bindingGroup"": ""QWERY KEYBOARD"",
-            ""devices"": []
-        },
         {
             ""name"": ""AZERTY KEYBOARD"",
             ""bindingGroup"": ""AZERTY KEYBOARD"",
@@ -565,19 +505,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
-    private int m_QWERYKEYBOARDSchemeIndex = -1;
-    /// <summary>
-    /// Provides access to the input control scheme.
-    /// </summary>
-    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-    public InputControlScheme QWERYKEYBOARDScheme
-    {
-        get
-        {
-            if (m_QWERYKEYBOARDSchemeIndex == -1) m_QWERYKEYBOARDSchemeIndex = asset.FindControlSchemeIndex("QWERY KEYBOARD");
-            return asset.controlSchemes[m_QWERYKEYBOARDSchemeIndex];
-        }
-    }
     private int m_AZERTYKEYBOARDSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.

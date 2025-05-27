@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interactText;
     [SerializeField] private TextMeshProUGUI interactAltText;
     [SerializeField] private TextMeshProUGUI pauseText;
+    [SerializeField] private Transform pressToRebindKeyTransform;
 
 
 
@@ -64,6 +66,41 @@ public class OptionsUI : MonoBehaviour
         {
             Hide();
         });
+
+        moveUpButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInput.Binding.MoveUp);
+        });
+
+        moveDownButton.onClick.AddListener(() =>
+       {
+           RebindBinding(GameInput.Binding.MoveDown);
+       });
+
+        moveLeftButton.onClick.AddListener(() =>
+       {
+           RebindBinding(GameInput.Binding.MoveLeft);
+       });
+
+        moveRighButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInput.Binding.MoveRight);
+        });
+
+        interactButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInput.Binding.Interact);
+        });
+
+        interactAltButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInput.Binding.InteractAlternate);
+        });
+
+        pauseButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInput.Binding.Pause);
+        });
     }
 
     private void UpdateVisuals()
@@ -88,5 +125,27 @@ public class OptionsUI : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+    }
+
+    private void ShowPressToRebindKey()
+    {
+        pressToRebindKeyTransform.gameObject.SetActive(true);
+    }
+
+    private void HidePressToRebindKey()
+    {
+        pressToRebindKeyTransform.gameObject.SetActive(false);
+    }
+
+    private void RebindBinding(GameInput.Binding binding)
+    {
+        ShowPressToRebindKey();
+        GameInput.Instance.RebindBinding(
+            binding,
+            () =>
+            {
+                HidePressToRebindKey();
+                UpdateVisuals();
+            });
     }
 }

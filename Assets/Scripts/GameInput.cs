@@ -11,6 +11,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPause;
 
+    public static GameInput Instance { get; private set; }
 
     public enum Binding
     {
@@ -19,7 +20,7 @@ public class GameInput : MonoBehaviour
         MoveLeft,
         MoveRight,
         Interact,
-        InteractAlternative,
+        InteractAlternate,
         Pause
     }
 
@@ -27,6 +28,7 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
 
@@ -68,5 +70,29 @@ public class GameInput : MonoBehaviour
 
         inputVector = inputVector.normalized;
         return inputVector;
+    }
+
+    public string GetBindingText(Binding binding)
+    {
+        switch (binding)
+        {
+            default:
+                return null;
+            case Binding.MoveUp:
+                return playerInputActions.Player.Move.bindings[1].ToDisplayString();
+            case Binding.MoveDown:
+                return playerInputActions.Player.Move.bindings[2].ToDisplayString();
+            case Binding.MoveLeft:
+                return playerInputActions.Player.Move.bindings[3].ToDisplayString();
+            case Binding.MoveRight:
+                return playerInputActions.Player.Move.bindings[4].ToDisplayString();
+            case Binding.Interact:
+                return playerInputActions.Player.Interact.bindings[0].ToDisplayString();
+            case Binding.InteractAlternate:
+                return playerInputActions.Player.InteractAlternate.bindings[0].ToDisplayString();
+            case Binding.Pause:
+                return playerInputActions.Player.Pause.bindings[0].ToDisplayString();
+
+        }
     }
 }

@@ -20,9 +20,7 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Button pauseButton;
     [SerializeField] private TextMeshProUGUI soundEffectsText;
     [SerializeField] private TextMeshProUGUI musicText;
-
     [SerializeField] private TextMeshProUGUI moveUpText;
-
     [SerializeField] private TextMeshProUGUI moveDownText;
     [SerializeField] private TextMeshProUGUI moveLeftText;
     [SerializeField] private TextMeshProUGUI moveRightText;
@@ -72,6 +70,14 @@ public class OptionsUI : MonoBehaviour
     {
         soundEffectsText.text = "Sound Effects: " + MathF.Floor(SoundManager.Instance.GetVolume() * 10);
         musicText.text = "Music: " + MathF.Floor(MusicManager.Instance.GetVolume() * 10);
+
+        moveUpText.text = GameInput.Instance.GetBindingText(GameInput.Binding.MoveUp);
+        moveDownText.text = GameInput.Instance.GetBindingText(GameInput.Binding.MoveDown);
+        moveLeftText.text = GameInput.Instance.GetBindingText(GameInput.Binding.MoveLeft);
+        moveRightText.text = GameInput.Instance.GetBindingText(GameInput.Binding.MoveRight);
+        interactText.text = GameInput.Instance.GetBindingText(GameInput.Binding.Interact);
+        interactAltText.text = GameInput.Instance.GetBindingText(GameInput.Binding.InteractAlternate);
+        pauseText.text = GameInput.Instance.GetBindingText(GameInput.Binding.Pause);
     }
 
     public void Hide()

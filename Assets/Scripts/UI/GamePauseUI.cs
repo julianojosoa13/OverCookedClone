@@ -42,8 +42,6 @@ public class GamePauseUI : MonoBehaviour
    private void GameManager_OnGameUnpaused(object sender, EventArgs e)
    {
       Hide();
-
-
    }
 
    public void GoToMainMenu()

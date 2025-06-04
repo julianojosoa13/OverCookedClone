@@ -12,6 +12,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPause;
+    public event EventHandler OnRebindBinding;
 
     public static GameInput Instance { get; private set; }
 
@@ -170,6 +171,8 @@ public class GameInput : MonoBehaviour
                 playerInputActions.Player.Enable();
                 PlayerPrefs.SetString(PLAYER_PREFS_REBINDING, playerInputActions.SaveBindingOverridesAsJson());
                 PlayerPrefs.Save();
+
+                OnRebindBinding?.Invoke(this, EventArgs.Empty);
             })
             .Start();
 

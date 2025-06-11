@@ -624,7 +624,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6600239704046458908, guid: 8db3666b7a188148492c994f52b1ab17,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4966117118547303814}
+    - targetCorrespondingSourceObject: {fileID: 6600239704046458908, guid: 8db3666b7a188148492c994f52b1ab17,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2753515966529702790}
   m_SourcePrefab: {fileID: 100100000, guid: 8db3666b7a188148492c994f52b1ab17, type: 3}
 --- !u!224 &5089389162940914563 stripped
 RectTransform:
@@ -632,6 +640,46 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4098657190871232296}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7167929560789727028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6600239704046458908, guid: 8db3666b7a188148492c994f52b1ab17,
+    type: 3}
+  m_PrefabInstance: {fileID: 4098657190871232296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4966117118547303814
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167929560789727028}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 284963883c5f152ce96e8ed723282c51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2753515966529702790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167929560789727028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f994e631d102aa3a8782d6d0e5806c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoveCounter: {fileID: 4506526305829004555}
 --- !u!1001 &5767795266433576232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -41,6 +41,11 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioClipRefsSO.warning[0], Vector3.zero);
     }
 
+    public void PlayeWarningSound(Vector3 position)
+    {
+        PlaySound(audioClipRefsSO.warning, position);
+    }
+
     private void TrashCounter_OnAnyObjectTrashed(object sender, EventArgs e)
     {
         TrashCounter trashCounter = sender as TrashCounter;

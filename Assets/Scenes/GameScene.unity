@@ -1497,6 +1497,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2064579294}
     m_Modifications:
+    - target: {fileID: 2608474497833414396, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608474497833414396, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608474497833414396, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900571017846494671, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048177641515917567, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3110583107647876460, guid: 989485a12ff3f045a814d6b7508050e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1547,10 +1572,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4621278325511083777, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676696011109386584, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478456679066273498, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8580709121571189163, guid: 989485a12ff3f045a814d6b7508050e2,
         type: 3}
       propertyPath: m_Name
       value: DeliveryCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696589636999639655, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: failedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696589636999639655, guid: 989485a12ff3f045a814d6b7508050e2,
+        type: 3}
+      propertyPath: successColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IKitchenObjectParent
+public class Player : NetworkBehaviour, IKitchenObjectParent
 {
     public event EventHandler OnPickedSomething;
-    public static Player Instance { get; private set; }
+    // public static Player Instance { get; private set; }
 
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
@@ -36,17 +37,17 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Debug.LogError("There is more than one player instance!");
-        }
-        Instance = this;
+        // if (Instance != null)
+        // {
+        //     Debug.LogError("There is more than one player instance!");
+        // }
+        // Instance = this;
     }
 
     private void Start()
     {
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
-        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
+        GameInput.Instance.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
     private void Update()
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void HandleInteract()
     {
-        Vector2 inputVector = gameInput.GetMovementVector();
+        Vector2 inputVector = GameInput.Instance.GetMovementVector();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
 
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void HandleMovement()
     {
-        Vector2 inputVector = gameInput.GetMovementVector();
+        Vector2 inputVector = GameInput.Instance.GetMovementVector();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
 

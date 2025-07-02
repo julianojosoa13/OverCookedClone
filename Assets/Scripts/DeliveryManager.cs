@@ -16,7 +16,7 @@ public class DeliveryManager : NetworkBehaviour
     [SerializeField] private RecipeListSO recipeListSO;
     private List<RecipeSO> waitingRecipeSOList;
 
-    private float spawnRecipeTimer;
+    private float spawnRecipeTimer = 4f;
     private float spawnRecipeTimerMax = 4f;
 
     private int waitingRecipesMax = 4;
@@ -52,6 +52,7 @@ public class DeliveryManager : NetworkBehaviour
     }
 
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject) {
+
         for (int i=0; i< waitingRecipeSOList.Count; i++) {
             RecipeSO waitingRecipeSO = waitingRecipeSOList[i];
 
@@ -76,16 +77,37 @@ public class DeliveryManager : NetworkBehaviour
                 }
 
                 if(plateContentsMatchRecipe) {
-                    waitingRecipeSOList.RemoveAt(i);
-                    successfulRecipesAmount++;
-                    OnWaitingRecipeListChanged?.Invoke(this, EventArgs.Empty);
-                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+                    DeliverCorrectRecipeServerRpc(i);
                     return;   
                 }                
             }
         }
+        
+        DeliverIncorrectRecipeServerRpc();
+       
+    }
 
-        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    [ServerRpc( RequireOwnership = false )]
+    private void DeliverIncorrectRecipeServerRpc() {
+        DeliverIncorrectRecipeClientRpc();
+    }
+
+    [ClientRpc]
+    private void DeliverIncorrectRecipeClientRpc() {
+         OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    }
+
+    [ServerRpc( RequireOwnership = false )]
+    private void DeliverCorrectRecipeServerRpc(int waitingRecipeSOListIndex) {
+        DeliverCorrectRecipeClientRpc(waitingRecipeSOListIndex);
+    }
+
+    [ClientRpc]
+    private void DeliverCorrectRecipeClientRpc(int waitingRecipeSOListIndex) {
+        waitingRecipeSOList.RemoveAt(waitingRecipeSOListIndex);
+        successfulRecipesAmount++;
+        OnWaitingRecipeListChanged?.Invoke(this, EventArgs.Empty);
+        OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
     }
 
     public List<RecipeSO> GetWaitingRecipeSOList() {

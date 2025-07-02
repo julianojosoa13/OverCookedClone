@@ -32,13 +32,15 @@ public class TutorialUi : MonoBehaviour
     }
 
     private void Start() {
-        UpdateVisual();
+        GameManager.Instance.OnGameStateChanged += GameManager_OnGameStateChanged;
         GameInput.Instance.OnRebindBinding += GameInput_OnRebindBinding;
-        GameManager.Instance.OnGameStateChanged += GameManager_OnGameStateChanged;;
+
+        UpdateVisual();
     }
 
     private void GameManager_OnGameStateChanged(object sender, EventArgs e) {
-        if(GameManager.Instance.IsCountdownToStartActive()) {
+        bool isCountDownToStart = GameManager.Instance.IsCountdownToStartActive();
+        if(isCountDownToStart) {
             Hide();
         }
     }

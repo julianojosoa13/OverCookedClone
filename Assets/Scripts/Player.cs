@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour, IKitchenObjectParent
 {
-    public event EventHandler OnPickedSomething;
-    // public static Player Instance { get; private set; }
+    public static Player LocalInstance { get; private set; }
+    public static event EventHandler OnAnyPlayerSpawned;
 
+    public static void ResetStaticData() {
+        OnAnyPlayerSpawned = null;
+      }
+
+    public event EventHandler OnPickedSomething;
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -55,6 +60,13 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         if(!IsOwner) return;
         HandleMovement();
         HandleInteract();
+    }
+
+    public override void OnNetworkSpawn() {
+        if(IsOwner) {
+            LocalInstance = this;
+        }
+        OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
     }
 
 

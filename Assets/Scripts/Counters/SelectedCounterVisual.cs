@@ -11,7 +11,18 @@ public class SelectedCounterVisual : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
+        if(Player.LocalInstance != null) {
+            Player.LocalInstance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
+        } else {
+            Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+        }
+    }
+
+    private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
+        if(Player.LocalInstance != null) {
+            Player.LocalInstance.OnSelectedCounterChanged -= Player_OnSelectedCounterChanged;
+            Player.LocalInstance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
+        }
     }
 
     // Update is called once per frame

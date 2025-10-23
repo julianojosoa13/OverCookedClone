@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 2605206473754332287}
   - component: {fileID: 2548615667911941589}
   - component: {fileID: 9172701025505554699}
+  - component: {fileID: -6671216451711732105}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Untagged
@@ -408,6 +409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 1411463094
   InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -415,6 +418,8 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &9172701025505554699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1099f51045ed589149982a1c6eccabfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   kitchenObjectSO: {fileID: 11400000, guid: c71bc75abb53d0bbe842579f7656eed0, type: 2}
   validKitchenObjectSOList:
   - {fileID: 11400000, guid: 4f764bdb06fb892cc882fd87f11e3f4e, type: 2}
@@ -435,6 +441,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4a4743e304a0d48aa09409faafc5791, type: 2}
   - {fileID: 11400000, guid: 47f32e98ce125e99c83681256bfc1cc6, type: 2}
   - {fileID: 11400000, guid: b5b0f03775958a8aeba89ec95b64f6b5, type: 2}
+--- !u!114 &-6671216451711732105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878991437183384412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4689bc758dfe29d64b7e8d67bbfb3fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowTransform
 --- !u!1001 &3444437907988530456
 PrefabInstance:
   m_ObjectHideFlags: 0

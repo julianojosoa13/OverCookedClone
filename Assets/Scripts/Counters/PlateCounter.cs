@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlateCounter : BaseCounter
@@ -19,25 +20,56 @@ public class PlateCounter : BaseCounter
     // Update is called once per frame
     void Update()
     {
+        if (!IsServer) return;
+
         spawnPlateTimer += Time.deltaTime;
 
-        if(spawnPlateTimer > spawnPlateTimerMax) {
+        if (spawnPlateTimer > spawnPlateTimerMax)
+        {
             spawnPlateTimer = 0f;
 
-            if(platesSpawnedAmount < platesSpawnedAmountMax && GameManager.Instance.IsGamePlaying()) {
-                platesSpawnedAmount++;
-                OnPlateSpawned?.Invoke(this, EventArgs.Empty);
+            if (platesSpawnedAmount < platesSpawnedAmountMax && GameManager.Instance.IsGamePlaying())
+            {
+                SpawnPlateServerRpc();
             }
         }
     }
 
-    public override void Interact(Player player) {
-        if(!player.HasKitchenObject()) {
-            if(platesSpawnedAmount > 0) {
-                platesSpawnedAmount--;
+    [ServerRpc]
+    private void SpawnPlateServerRpc()
+    {
+        SpawnPlateClientRpc();
+    }
+
+    [ClientRpc]
+    private void SpawnPlateClientRpc()
+    {
+        platesSpawnedAmount++;
+        OnPlateSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    public override void Interact(Player player)
+    {
+        if (!player.HasKitchenObject())
+        {
+            if (platesSpawnedAmount > 0)
+            {
+                InteractLogicServerRpc();
                 KitchenObject.SpawnKitchenObject(plateKitchenObjectSO, player);
-                OnPlateRemoved?.Invoke(this, EventArgs.Empty);
             }
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void InteractLogicServerRpc()
+    {
+        InteractLogicClientRpc();
+    }
+
+    [ClientRpc]
+    private void InteractLogicClientRpc()
+    {
+        platesSpawnedAmount--;
+        OnPlateRemoved?.Invoke(this, EventArgs.Empty);
     }
 }
